@@ -203,7 +203,7 @@ class Geometria:
         """
         return (lado*lado)*6
     
-    def volumen_esfera(self, radio):
+    def volumen_esfera(self):
         """
         Calcula el volumen de una esfera.
         
@@ -213,7 +213,12 @@ class Geometria:
         Returns:
             float: Volumen de la esfera
         """
-        return (4/3)*3.1416(radio**3)
+          # Test con radio entero
+        assert round(self.geometria.volumen_esfera(3), 2) == 113.1
+        # Test con radio decimal
+        assert round(self.geometria.volumen_esfera(2.5), 2) == 65.45
+        # Test con radio cero (volumen cero)
+        assert self.geometria.volumen_esfera(0) == 0
     
     def area_superficie_esfera(self, radio):
         """
@@ -253,7 +258,7 @@ class Geometria:
         """
         return 2*3.1416*radio*(altura+radio)
     
-    def distancia_entre_puntos(self, x1, y1, x2, y2):
+    def distancia_entre_puntos(self):
         """
         Calcula la distancia euclidiana entre dos puntos en un plano 2D.
         
@@ -266,7 +271,12 @@ class Geometria:
         Returns:
             float: Distancia entre los dos puntos
         """
-        return (((x2 - x1)*2) + (y2 - y1)*2)*0.5
+         # Test con valores enteros positivos
+        assert self.geometria.distancia_entre_puntos(0, 0, 3, 4) == 5
+        # Test con valores negativos
+        assert round(self.geometria.distancia_entre_puntos(-1, -2, 2, 3), 2) == 5.83
+        # Test con puntos idénticos (distancia cero)
+        assert self.geometria.distancia_entre_puntos(5, 5, 5, 5) == 0
     
     def punto_medio(self, x1, y1, x2, y2):
         """
@@ -328,7 +338,7 @@ class Geometria:
 
         return (A, B, C)
     
-    def area_poligono_regular(self, num_lados, lado, apotema):
+    def area_poligono_regular(self):
         """
         Calcula el área de un polígono regular.
         
@@ -340,7 +350,12 @@ class Geometria:
         Returns:
             float: Área del polígono regular
         """
-        return (num_lados * lado * apotema) / 2
+           # Test con triángulo regular
+        assert round(self.geometria.area_poligono_regular(3, 10, 2.89), 2) == 43.35
+        # Test con cuadrado
+        assert self.geometria.area_poligono_regular(4, 5, 2.5) == 50
+        # Test con pentágono
+        assert round(self.geometria.area_poligono_regular(5, 6, 4.1), 2) == 61.5
     
     def perimetro_poligono_regular(self, num_lados, lado):
         """

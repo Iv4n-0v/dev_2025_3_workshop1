@@ -45,7 +45,7 @@ class Games:
             return "muy alto"
         return "muy bajo"
     
-    def ta_te_ti_ganador(self, tablero):
+    def ta_te_ti_ganador(self):
         """
         Verifica si hay un ganador en un tablero de tic-tac-toe.
         
@@ -60,22 +60,46 @@ class Games:
              ["O", "O", " "],
              [" ", " ", " "]] -> "X"
         """
-        hay_espacios_vacios = any(" " in fila for fila in tablero)
+          # Test victoria en fila
+        tablero_fila1 = [["X", "X", "X"], ["O", "O", " "], [" ", " ", " "]]
+        assert self.games.ta_te_ti_ganador(tablero_fila1) == "X"
+        
+        tablero_fila2 = [[" ", " ", " "], ["O", "O", "O"], ["X", "X", " "]]
+        assert self.games.ta_te_ti_ganador(tablero_fila2) == "O"
+        
+        tablero_fila3 = [["O", "X", "O"], ["X", "O", "X"], ["X", "X", "X"]]
+        assert self.games.ta_te_ti_ganador(tablero_fila3) == "X"
+        
+        # Test victoria en columna
+        tablero_col1 = [["X", "O", "O"], ["X", "O", "X"], ["X", " ", " "]]
+        assert self.games.ta_te_ti_ganador(tablero_col1) == "X"
+        
+        tablero_col2 = [["X", "O", "X"], [" ", "O", "X"], ["X", "O", " "]]
+        assert self.games.ta_te_ti_ganador(tablero_col2) == "O"
+        
+        tablero_col3 = [["X", "O", "O"], ["X", "X", "O"], [" ", " ", "O"]]
+        assert self.games.ta_te_ti_ganador(tablero_col3) == "O"
+        
+        # Test victoria en diagonal principal
+        tablero_diag1 = [["X", "O", "O"], ["O", "X", "O"], ["X", "O", "X"]]
+        assert self.games.ta_te_ti_ganador(tablero_diag1) == "X"
+        
+        # Test victoria en diagonal secundaria
+        tablero_diag2 = [["X", "O", "O"], ["X", "O", "X"], ["O", "X", "X"]]
+        assert self.games.ta_te_ti_ganador(tablero_diag2) == "O"
+        
+        # Test empate (tablero lleno sin ganador)
+        tablero_empate = [["X", "O", "X"], ["O", "O", "X"], ["O", "X", "O"]]
+        assert self.games.ta_te_ti_ganador(tablero_empate) == "empate"
+        
+        # Test juego continúa (tablero incompleto sin ganador)
+        tablero_continua = [["X", "O", " "], [" ", "X", "O"], ["O", " ", "X"]]
+        assert self.games.ta_te_ti_ganador(tablero_continua) == "continua"
+        
+        # Test tablero vacío
+        tablero_vacio = [[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]]
+        assert self.games.ta_te_ti_ganador(tablero_vacio) == "continua"
 
-        for fila in tablero:
-            if fila[0] == fila[1] == fila[2] and fila[0] != " ":
-                return fila[0]
-        for j in range(3):
-            if tablero[0][j] == tablero[1][j] == tablero[2][j] and tablero[0][j] != " ":
-                return tablero[0][j]
-        if tablero[0][0] == tablero[1][1] == tablero[2][2] and tablero[0][0] != " ":
-            return tablero[0][0]
-        if tablero[0][2] == tablero[1][1] == tablero[2][0] and tablero[0][2] != " ":
-            return tablero[0][2]
-        if hay_espacios_vacios:
-            return "continua"
-        else:
-            return "empate"
     def generar_combinacion_mastermind(self, longitud, colores_disponibles):
         """
         Genera una combinación aleatoria para el juego Mastermind.
